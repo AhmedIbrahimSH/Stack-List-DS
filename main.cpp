@@ -1,140 +1,118 @@
-#include <iostream>
 
+/* THIS FILE BELONGS TO  "AHMED IBRAHIM SHARAF ELDIN"
+
+    THE FILE SIMPLY IS CREATING A SIMPLE STACK DS USING ARRAY
+    THE NAME OF THE STACK IS "stacklist"
+    The Functions developed in this file for the stack are:
+    1)  isempty  (to check if the list is empty)
+
+    2)  isfull   (to check if the list is full)
+    3)  push     (to add value to the list)
+    4)  pop      (to remove the element at the top of the stack)
+    5)  peek     (to display the value at the top of the stack)
+    6)  display  (to display/print values of the list)
+
+    Note that : The functions are ordered in the order of their declaration
+
+*/
+#include <iostream>
 using namespace std;
 
 
+#define Size 20
+int stackk[Size];
+int  top = -1;
 
-// 1) creating the node that is the main key of the linked list
-class node {
-public:
-    int data;
-    node* next;
-    node(){
-        data = 0;
-        next = NULL;
-    }
-};
 
-// 2) creating the main the linked list and its main functions
-
-class linkedlist{
-
-public:
-    node* head;
-    linkedlist(){
-        head = NULL;
-    }
-
-    // 3) check if list is empty or not and tells the user
-
-    void isempty(){
-        if(head == NULL)
-            cout << "the list is empty" << endl;
-        else
-            cout << "the list isnot empty" << endl;
-    }
-
-   void push(int value){
-        node* temp = new node();
-        temp->data = value;
-        if(head == NULL){
-            temp->next = NULL;
-            head = temp;
+class stacklist{
+    public:
+        bool isempty(){
+            if(top == -1){
+                return 1;
+            }
+            else
+                return 0;
         }
-        else
-            temp->next = head;
-            head = temp;
-
-    }
-
-    void peek(){
-        node* ptr = head;
-        cout <<  ptr->data << endl;
-    }
-
-    void pop(){
-        node* ptr = head;
-        head = head->next;
-        delete ptr;
-    }
-
-
-    //  6)  checks if the value actually exists or not in the linked list
-    bool check(int value){
-                node* ptr = head;
-                while(ptr != NULL){
-
-                    if(ptr->data == value)
-                        return true;
-                    else {
-                        ptr = ptr->next;
-                    }
-                }
+        bool isfull(){
+            if(top == Size-1){
+                return true;
+            }
+            else
                 return false;
 
-            }
-
-
-    // 7) adding after specific value entered by the user that exists in the linked list
-
-
-        // 8) displaying all of the linked list values
-
-        int display(){
-            node* ptr = head;
-            while(ptr != NULL){
-                cout << ptr->data << "  ";
-                ptr = ptr->next;
-            }
-            cout << endl;
         }
-
-        //  9)  return the index of the specific value entered as parameter in the function
-        int position(int value){
-            if(check(value)){
-                    int position = 0;
-                    node* ptr = head;
-                    while(ptr != NULL){
-                        if(ptr->data == value)
-                            return position;
-                        else{
-                            ptr = ptr->next;
-                            position++;
-                    }}
-                    return -1;
-                }
-
-            else
-                    cout << "Value you entered does not exist in the linked list " << endl;
-
-
+     void push(int value){
+        if(isfull()){
+            cout << "overflow " << endl;
         }
+        else {
+            top++;
+            stackk[top] = value;
+        }
+    }
+
+    int pop(){
+        if(isfull()){
+            cout << "stack underflow" << endl;
+            return 0;}
+        else
+            return stackk[(top--)];
+
+    }
+    int peek(){
+
+        if(isempty()){
+            cout << "underflow" <<endl;
+    }
+        else{
+            return stackk[top];
+    }
+    }
 
 
-
+    void display(){
+        if(isempty()){
+            cout << "list is empty" << endl;
+        }
+        else {
+        for(int i = top; i>=0; i--){
+            cout << stackk[i] << " ";
+        }}
+        cout << endl;
+    }
 
 
 
 
 };
 
+/* function in the linked list
+        void push(int value);
+        int pop();
+        int peek();
+        bool isempty();
+        void display();
+*/
 int main()
 {
 
-    linkedlist trial;
-
-    trial.push(20);
-    trial.push(30);
-    trial.push(40);
-    trial.push(50);
-    trial.push(90);
-    trial.display();
-    trial.pop();
-    trial.peek();
-    trial.pop();
-    trial.display();
+    stacklist v1;
+    // to use the stack list , just type v1. and a drop list will appear with the functions that can be used
 
 
+    // an example is shown below to add the value 15 to the list
+    v1.push(15);
 
+    // an example below is shown to add another value (20) and to display all of the stack
+
+    v1.push(20);
+    v1.display();
+
+
+    // to know the function and what they do check the first 15 lines of this file
     return 0;
 }
+
+
+
+
